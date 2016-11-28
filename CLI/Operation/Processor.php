@@ -41,7 +41,7 @@ class Processor implements \Rfd\ImageMagick\Operation\Processor {
         $this->temp_input_filename = false;
         
         if($input_image) {
-            $this->getTempFilename('input_');
+            $this->temp_input_filename = $this->getTempFilename('input_');
             file_put_contents($this->temp_input_filename, $input_image->getImageData());
         }
 
