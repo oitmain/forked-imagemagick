@@ -107,6 +107,8 @@ class Processor implements \Rfd\ImageMagick\Operation\Processor {
         if ($output_image) {
             $output_image->setImageData(file_get_contents($temp_output_filename));
         }
+        
+        unlink($temp_output_filename);
 
         return implode("\n", $output);
     }

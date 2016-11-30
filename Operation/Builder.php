@@ -76,4 +76,26 @@ class Builder {
 
         return $this;
     }
+    
+    public function fromArray($operations)
+    {
+        foreach($operations as $operation)
+        {
+            $values = reset($operation);
+            $command = key($operation);
+            $operationStart = $this->next()->{$command}();
+            foreach($values as $key=>$value)
+            {
+                if(!is_array($value)) $value = [$value];
+                $setFunction = 'set' . str_replace(' ', '', ucwords(str_replace('_', ' ', $key)));
+                call_user_func_array([$operationStart, $setFunction], $value);
+            }
+            if($command == 'direct')
+            {
+                $operationStart->takeRisk();
+            }
+        }
+        return $this;
+    }
+    
 } 
